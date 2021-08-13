@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crm',
+    'crm.apps.CrmConfig',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +124,21 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Настройки Celery
+
+# URL брокера сообщений (Redis). По умолчанию он находится на порту 6379
+CELERY_BROKER_URL = 'redis://localhost:6379'
+
+# хранилище результатов выполнения задач
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+
+# допустимый формат данных
+CELERY_ACCEPT_CONTENT = ['application/json']
+
+# метод сериализации задач
+CELERY_TASK_SERIALIZER = 'json'
+
+# метод сериализации результатов
+CELERY_RESULT_SERIALIZER = 'json'
