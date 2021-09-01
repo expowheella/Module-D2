@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crm.apps.CrmConfig',
+    # 'myapp',
+    'django_celery_beat',
+    'django_celery_results',
+
+    'board',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +59,7 @@ ROOT_URLCONF = 'Macdonalds.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,10 +133,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Настройки Celery
 
 # URL брокера сообщений (Redis). По умолчанию он находится на порту 6379
-CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
 # хранилище результатов выполнения задач
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'  #'django-db'
 
 # допустимый формат данных
 CELERY_ACCEPT_CONTENT = ['application/json']
@@ -142,3 +146,8 @@ CELERY_TASK_SERIALIZER = 'json'
 
 # метод сериализации результатов
 CELERY_RESULT_SERIALIZER = 'json'
+
+# настройки Celery
+CELERY_TIMEZONE = "Europe/Moscow"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
